@@ -22,15 +22,15 @@ class Lingkaran extends BangunDatar
     public function __construct(private readonly float $jariJari)
     {
         parent::__construct('Lingkaran');
-        // TODO 1: tolak jari-jari <= 0.
+        // TODO 1: tolak jari-jari <= 0.   [SELESAI]
         if ($jariJari <= 0) {
-            throw new InvalidArgumentException("jari jari harus > 0, diterima: $jarijari");
+            throw new InvalidArgumentException("Jari-jari harus > 0, diterima: $jariJari");
         }
     }
 
-    // TODO 2: lengkapi. Gunakan M_PI, bukan 3.14.
-    public function luas(): float     { return M_PI * $this->JariJari ** 2; }
-    public function keliling(): float { return 2 * M_PI * $this->JariJari ; }
+    // TODO 2: lengkapi. Gunakan M_PI, bukan 3.14.   [SELESAI]
+    public function luas(): float     { return M_PI * $this->jariJari ** 2; }
+    public function keliling(): float { return 2 * M_PI * $this->jariJari; }
 
     public function getJariJari(): float { return $this->jariJari; }
 }
@@ -40,19 +40,19 @@ class Persegi extends BangunDatar
     public function __construct(private readonly float $sisi)
     {
         parent::__construct('Persegi');
-        // TODO 1: tolak sisi <= 0.
+        // TODO 1: tolak sisi <= 0.   [SELESAI]
         if ($sisi <= 0) {
-            throw new InvalidArgumentException("sisi harus > 0, diterima: $sisi");
+            throw new InvalidArgumentException("Sisi harus > 0, diterima: $sisi");
         }
     }
 
-    // TODO 2: lengkapi.
+    // TODO 2: lengkapi.   [SELESAI]
     public function luas(): float     { return $this->sisi ** 2; }
     public function keliling(): float { return 4 * $this->sisi; }
 }
 
 // TODO Langkah 2: buat kelas Segitiga (tiga sisi, rumus Heron).
-//                 Tolak konstruksi bila ketiga sisi tidak membentuk segitiga.
+//                 Tolak konstruksi bila ketiga sisi tidak membentuk segitiga.   [SELESAI]
 class Segitiga extends BangunDatar
 {
     public function __construct(
@@ -60,7 +60,7 @@ class Segitiga extends BangunDatar
         private readonly float $b,
         private readonly float $c,
     ) {
-        parent::__construct('segitiga');
+        parent::__construct('Segitiga');
         if ($a <= 0 || $b <= 0 || $c <= 0) {
             throw new InvalidArgumentException('Semua sisi harus > 0');
         }
@@ -69,18 +69,18 @@ class Segitiga extends BangunDatar
         }
     }
 
-    /** Rumus Heron */
-    public function luas(): float 
+    /** Rumus Heron. */
+    public function luas(): float
     {
-        $a = $this->keliling() / 2;
-        return sqrt($a * ($s -$this->a) * ($s - $this->b) * ($s - $this->c)); 
+        $s = $this->keliling() / 2;
+        return sqrt($s * ($s - $this->a) * ($s - $this->b) * ($s - $this->c));
     }
 
-    public function keliling(): float { 
-        return $this->a + $this->b + $this->c; }
+    public function keliling(): float { return $this->a + $this->b + $this->c; }
 }
-// TODO Langkah 4: buat kelas Trapesium.
-class Trapesium extends BangunDatar 
+
+// TODO Langkah 4: buat kelas Trapesium.   [SELESAI]
+class Trapesium extends BangunDatar
 {
     public function __construct(
         private readonly float $sejajarA,
@@ -98,10 +98,6 @@ class Trapesium extends BangunDatar
         }
     }
 
-    public function luas(): float {
-        return ($this->sejajarA + $this->sejajarB) / 2 * $this->tinggi;
-    }
-    public function keliling(): float {
-        return $this->sejajarA + $this->sejajarB + $this->kakiC * $this->kakidD;
-    }
+    public function luas(): float     { return ($this->sejajarA + $this->sejajarB) / 2 * $this->tinggi; }
+    public function keliling(): float { return $this->sejajarA + $this->sejajarB + $this->kakiC + $this->kakiD; }
 }
