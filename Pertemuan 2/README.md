@@ -97,6 +97,11 @@
 
 * Tidak ada TODO pada `Main.java`.
 
+**Code Program:**
+![Code Java](SScodejava.png)
+
+![Code Java](SScodejava(1).png)
+
 **Output Program:**
 ![Output Java](SSoutputJava.png)
 
@@ -191,6 +196,11 @@
 ### 2.2. File: `Main.php`
 
 * Tidak ada TODO pada `Main.php`.
+
+**Code Program:**
+![Code PHP](SScodephp.png)
+
+![Code PHP](SScodephp(1).png)
 
 **Output Program:**
 ![Output PHP](SSoutputphp.png)
