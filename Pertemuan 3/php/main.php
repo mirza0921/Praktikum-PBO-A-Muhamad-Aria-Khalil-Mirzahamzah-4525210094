@@ -10,7 +10,8 @@ $b = RekeningBank::rekeningPelajar('222', 'Budi');   // named constructor
 $c = new RekeningBank('333', 'Citra', 250_000);
 
 echo $a, PHP_EOL, $b, PHP_EOL, $c, PHP_EOL;
-echo 'Jumlah rekening sekarang: ', RekeningBank::getJumlahRekening(), '   (seharusnya 3)', PHP_EOL;
+echo 'Jumlah rekening sekarang: ', RekeningBank::getJumlahRekening(), '   (seharusnya 3)', 
+PHP_EOL;
 
 echo PHP_EOL, '=== Operasi ===', PHP_EOL;
 $a->setor(500_000);
