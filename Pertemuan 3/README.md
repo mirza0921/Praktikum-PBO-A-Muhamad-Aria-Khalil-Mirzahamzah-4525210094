@@ -7,7 +7,7 @@
 | **Kelas** | A |
 | **Mata Kuliah** | Pemrograman Berbasis Objek (PBO) |
 | **Pertemuan** | 3 - Constructor, Anggota Statis, dan Konstanta |
-| **Tanggal** | 10/09/2026 |
+| **Tanggal** | 17/09/2026 |
 
 ---
 
