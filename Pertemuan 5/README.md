@@ -6,8 +6,8 @@
 | **NPM** | 4525210094 |
 | **Kelas** | A |
 | **Mata Kuliah** | Pemrograman Berbasis Objek (PBO) |
-| **Pertemuan** | 5 - Polimorfisme (Polymorphism) |
-| **Tanggal** | [isi tanggal praktikum] |
+| **Pertemuan** | 5 - Polimorfisme  |
+| **Tanggal** | [ 01/10/2026 ] |
 
 ---
 
