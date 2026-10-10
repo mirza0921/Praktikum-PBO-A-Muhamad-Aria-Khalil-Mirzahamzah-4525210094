@@ -8,7 +8,8 @@ public class Segitiga extends BangunDatar {
         }
         // Tolak bila ketiga sisi tidak membentuk segitiga (ketaksamaan segitiga)
         if (a + b <= c || a + c <= b || b + c <= a) {
-            throw new IllegalArgumentException("Sisi" + a + "," + b + "," + c + "Tidak Membentuk segitiga");
+            throw new IllegalArgumentException("Sisi" + a + "," + b + "," + c + "Tidak Membentuk 
+            segitiga");
         }
         this.a = a;
         this.b = b;
@@ -21,5 +22,5 @@ public class Segitiga extends BangunDatar {
     }
 
     @Override public double keliling() {
-        return a + b + b; } 
+        return a + b + c; } 
 }

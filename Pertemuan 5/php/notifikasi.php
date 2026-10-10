@@ -16,9 +16,9 @@ abstract class Notifikasi
 {
     public function __construct(public readonly string $tujuan) {}
 
-    abstract function kirim(string $pesan): void;
+    abstract public function kirim(string $pesan): void;
 
-    public function saluram(): string 
+    public function saluran(): string
     {
         return static::class;
     }
@@ -38,9 +38,9 @@ class Email extends Notifikasi
 
 class SMS extends Notifikasi
 {
-    public function kirim(string $pesan): void 
+    public function kirim(string $pesan): void
     {
-        echo "[{$this->saluran()}] ke {$this->tujuan}:", substr($pesan, 0, 160), PHP_EOL;
+        echo "[{$this->saluran()}] ke {$this->tujuan}: ", substr($pesan, 0, 160), PHP_EOL;
     }
 }
 
@@ -48,7 +48,7 @@ class WhatsApp extends Notifikasi
 {
     public function kirim(string $pesan): void
     {
-        echo "[{$this->saluran()}] ke {$this->tujuan}:",  PHP_EOL,
+        echo "[{$this->saluran()}] ke {$this->tujuan}:", PHP_EOL,
             " *Pemberitahuan*", PHP_EOL,
             " $pesan", PHP_EOL;
     }
@@ -58,28 +58,19 @@ class WhatsApp extends Notifikasi
  * TODO 3: kirim pesan ke seluruh notifikasi dalam daftar.
  *
  * ATURAN: tidak boleh ada instanceof, tidak boleh ada match/switch
- *         atas jenis notifikasi. Kalau Anda merasa membutuhkannya,
- *         berarti hierarki Anda belum benar.
+ *         atas jenis notifikasi.
  *
  * @param Notifikasi[] $daftar
  */
 function kirimSemua(array $daftar, string $pesan): void
 {
-    // TODO 3
     foreach ($daftar as $n) {
         $n->kirim($pesan);
     }
 }
 
-// Uji setelah TODO 1-3 selesai:
-// kirimSemua([
-//     new Email('ani@univpancasila.ac.id'),
-//     new SMS('081234567890'),
-//     new WhatsApp('081234567890'),
-// ], 'Buku yang Anda pesan sudah tersedia.');
-
 kirimSemua([
     new Email('ani@univpancasila.ac.id'),
     new SMS('081234567890'),
-    new WhatsApp('081234567890')
-],  'Buku yang Anda pesan sudah tersedia.');
+    new WhatsApp('081234567890'),
+], 'Buku yang Anda pesan sudah tersedia.');
