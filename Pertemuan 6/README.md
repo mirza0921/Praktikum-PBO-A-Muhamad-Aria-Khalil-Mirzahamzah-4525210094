@@ -7,7 +7,7 @@
 | **Kelas** | A |
 | **Mata Kuliah** | Pemrograman Berbasis Objek (PBO) |
 | **Pertemuan** | 6 - Antarmuka (Interface), Enum, dan Trait |
-| **Tanggal** | [isi tanggal praktikum] |
+| **Tanggal** | [ 08/10/2026 ] |
 
 ---
 
