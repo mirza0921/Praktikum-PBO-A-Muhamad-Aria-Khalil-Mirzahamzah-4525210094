@@ -23,8 +23,9 @@ public class Buku {
 
     public Buku(String nomorInduk, String judul, String penulis, int jumlahEksemplar) {
         // TODO 1: tolak jumlah eksemplar negatif.
-        if(jumlahEksemplar < 0) {
-            throw new IllegalAccessError("Jumlah Eksemplar tidak boleh negatif!");
+        if (jumlahEksemplar < 0) {
+            throw new IllegalArgumentException("Jumlah eksemplar tidak boleh negatif: " + 
+            jumlahEksemplar);
         }
         this.nomorInduk = nomorInduk;
         this.judul = judul;
@@ -38,8 +39,7 @@ public class Buku {
      *         Kalau Anda menerima objek Bab dari luar, ini menjadi agregasi.
      */
     public void tambahBab(int nomor, String judulBab) {
-        Bab objekBab = new Bab(nomor, judulBab);
-        this.bab.add(objekBab);
+        bab.add(new Bab(nomor, judulBab));
     }
 
     /**
@@ -49,19 +49,17 @@ public class Buku {
      *         percobaan 1, lalu perbaiki. Rasakan bedanya.
      */
     public List<Bab> getBab() {
-        return List.copyOf(this.bab);   // ganti
+        return List.copyOf(bab);
     }
 
     public boolean tersedia() { return jumlahEksemplar > 0; }
 
     /** TODO 4: kurangi stok; tolak bila sudah nol. */
     public void kurangiStok() {
-        if(jumlahEksemplar <= 0) {
-            System.out.println("Stock Eksemplar = 0");
-            return;
+        if (jumlahEksemplar == 0) {
+            throw new IllegalStateException("Stok \"" + judul + "\" sudah habis");
         }
-
-        this.jumlahEksemplar--;
+        jumlahEksemplar--;
     }
 
     public void tambahStok() { jumlahEksemplar++; }

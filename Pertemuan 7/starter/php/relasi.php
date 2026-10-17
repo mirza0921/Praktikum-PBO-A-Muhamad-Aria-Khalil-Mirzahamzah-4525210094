@@ -15,19 +15,17 @@ final class Bab
      *         seperti Java, jadi disiplin ini dijaga lewat konvensi —
      *         tuliskan catatannya di bukti-relasi.md.
      */
-
     public function __construct(
         private readonly int $nomor,
-        private readonly string $judul
-    )
-    {}
+        private readonly string $judul,
+    ) {}
 
-    public function getNomor() : int{
-        return $this->nomor;
-    }
+    public function getNomor(): int { return $this->nomor; }
+    public function getJudul(): string { return $this->judul; }
 
-    public function getJudul() : string{
-        return 'Bab' .$this->getNomor() . ":" .$this->getJudul();
+    public function __toString(): string
+    {
+        return 'Bab ' . $this->nomor . ': ' . $this->judul;
     }
 }
 
@@ -44,14 +42,15 @@ final class Buku
     ) {
         // TODO 2: tolak jumlah eksemplar negatif.
         if ($jumlahEksemplar < 0) {
-            throw new Error("Jumlah eksemplar tidak boleh negatif");
+            throw new InvalidArgumentException('Jumlah eksemplar tidak boleh negatif: ' . 
+            $jumlahEksemplar);
         }
     }
 
     /** TODO 3: satu-satunya cara Bab lahir. Parameternya nomor dan judul, bukan objek Bab. */
     public function tambahBab(int $nomor, string $judulBab): void
     {
-        array_push($this->bab, new Bab($nomor, $judulBab));
+        $this->bab[] = new Bab($nomor, $judulBab);
     }
 
     /**
@@ -67,9 +66,10 @@ final class Buku
     public function tersedia(): bool { return $this->jumlahEksemplar > 0; }
 
     /** TODO 4 */
-    public function kurangiStok(): void {
-        if ($this->jumlahEksemplar <= 0) {
-            throw new Error("Stok buku habis");
+    public function kurangiStok(): void
+    {
+        if ($this->jumlahEksemplar === 0) {
+            throw new RuntimeException('Stok "' . $this->judul . '" sudah habis');
         }
         $this->jumlahEksemplar--;
     }
@@ -108,17 +108,20 @@ final class Jurusan
     ) {}
 
     /** TODO 5: terima objek dari luar (agregasi). Jangan menambahkan duplikat. */
-    public function daftarkan(Mahasiswa $m): void {
-        array_push($this->mahasiswa, $m);
+    public function daftarkan(Mahasiswa $m): void
+    {
+        // Perbandingan strict (===) pada objek membandingkan identitas, bukan isi.
+        if (!in_array($m, $this->mahasiswa, true)) {
+            $this->mahasiswa[] = $m;
+        }
     }
 
     /** TODO 6: lepaskan dari jurusan. Objeknya tetap hidup. */
-    public function keluarkan(Mahasiswa $m): void {
-        $key = array_search($m, $this->mahasiswa, true);
-        if ($key !== false) {
-            unset($this->mahasiswa[$key]);
-            $this->mahasiswa = array_values($this->mahasiswa); // reindex
-        }
+    public function keluarkan(Mahasiswa $m): void
+    {
+        $this->mahasiswa = array_values(
+            array_filter($this->mahasiswa, static fn(Mahasiswa $x): bool => $x !== $m)
+        );
     }
 
     /** @return Mahasiswa[] */
@@ -126,6 +129,7 @@ final class Jurusan
 
     public function __toString(): string
     {
-        return sprintf('%s - %s (%d mahasiswa)', $this->kode, $this->nama, count($this->mahasiswa));
+        return sprintf('%s - %s (%d mahasiswa)', $this->kode, $this->nama, 
+        count($this->mahasiswa));
     }
 }
