@@ -4,7 +4,7 @@
 | :--- | :--- |
 | **Mata Kuliah** | Pemrograman Berbasis Objek (PBO) |
 | **Kelas** | A |
-| **PJ** | [Nama Penanggung Jawab] |
+| **PJ** | [Naila Putri Fahel] |
 | **Tema** | [Isi Tema/Judul Proyek UTS] |
 | **Tanggal** | [Tanggal UTS] |
 | **Nama** | [Nama] |
@@ -16,16 +16,14 @@
 
 | Nama | NPM | Tugas / Fitur yang Dikerjakan |
 | :--- | :--- | :--- |
-| [Nama Anggota 1] | [NPM 1] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 2] | [NPM 2] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 3] | [NPM 3] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 4] | [NPM 1] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 5] | [NPM 2] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 6] | [NPM 3] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 7] | [NPM 1] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 8] | [NPM 2] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 9] | [NPM 3] | [Isi tugas/fitur yang dikerjakan] |
-| [Nama Anggota 10] | [NPM 3] | [Isi tugas/fitur yang dikerjakan] |
+| [Mukhamad Akbar Raffael Ridho] | [4525210085] | [Polimorfisme - layananreguler.java] |
+| [Vika Elda Lestari] | [4525210088] | [Abstract, enum - jenislayanan.java] |
+| [Ardhelia Salsabila Al-bahri] | [4525210092] | [Relasi objek - Nota.java] |
+| [Muhamad Aria Khalil Mirzahamzah] | [4525210094] | [Konstruktor, static, dan konstanta - Nota.java] |
+| [Aulia Fachri] | [4525210098] | [Polimorfisme,Interface - diskon.java,main.java,pelanggan.java] |
+| [Muhammad Faathir Madani] | [4525210100] | [Kelas, objek, dan enkasupalsi - Pelanggan.java] |
+| [Rayza Aqsha Aditya] | [4525210101] | [Pewarisan - LayananExpress.java] |
+
 
 ---
 
