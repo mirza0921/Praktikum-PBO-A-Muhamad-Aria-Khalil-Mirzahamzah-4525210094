@@ -1,5 +1,3 @@
-markdown
-```
 # LAPORAN UTS PRAKTIKUM PEMROGRAMAN BERBASIS OBJEK
 
 | Informasi Proyek | Keterangan |
