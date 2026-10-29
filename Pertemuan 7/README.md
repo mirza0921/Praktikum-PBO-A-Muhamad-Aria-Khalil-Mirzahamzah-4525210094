@@ -1,173 +1,336 @@
-# Praktikum Sesi 7 — Pemodelan Relasi Objek dan UML
+# LAPORAN PRAKTIKUM PEMROGRAMAN BERBASIS OBJEK
 
-**Sub-CPMK-P5 — Mahasiswa mampu menerjemahkan UML class diagram menjadi kode yang konsisten dan sebaliknya. (P3, C4)**
-
-**Keterkaitan teori:** Pertemuan 7 — Relasi Objek dan UML Class Diagram  
-**Durasi:** 170 menit (1 SKS praktikum) · **Bobot:** 6% dari nilai praktikum  
-**Bahasa:** Java 25 dan PHP 8.4+
-
-> Versi cetak modul ini: [`Modul-Praktikum-07-pemodelan-relasi-objek-dan-uml.docx`](Modul-Praktikum-07-pemodelan-relasi-objek-dan-uml.docx). Kerangka kode: [`starter/`](starter/).
-
----
-
-## A. Tujuan sesi
-
-1. Menganalisis kebutuhan Sistem Perpustakaan menjadi model objek.
-2. Membuat use case diagram, class diagram, dan sequence diagram dengan PlantUML.
-3. Menerjemahkan class diagram menjadi kerangka kode yang konsisten.
-4. Membedakan agregasi dan komposisi melalui wujudnya di kode, bukan hanya di gambar.
-
-## B. Alat dan bahan
-
-- Lingkungan hasil sesi 1.
-- PlantUML terpasang dan bisa merender.
-
-## C. Berkas starter
-
-Salin ke folder tugas Anda; **jangan** menyunting berkas aslinya. Setiap komentar `TODO` harus Anda lengkapi sendiri — kode yang disalin dari sumber lain akan terlihat pada sesi demo.
-
-| Berkas | Keterangan |
-|---|---|
-| `starter/uml/perpustakaan-kerangka.puml` | Kerangka class diagram dengan bagian yang harus dilengkapi. |
-| `starter/java/` | Kerangka paket model dan service dengan TODO. |
-| `starter/php/` | Padanan PHP. |
-| `starter/deskripsi-kebutuhan.md` | Deskripsi kebutuhan Sistem Perpustakaan yang harus dianalisis. |
-
-## D. Langkah kerja
-
-Kerjakan berurutan. Jangan melanjutkan ke langkah berikutnya sebelum checkpoint terpenuhi.
-
-### Langkah 1 — Analisis kebutuhan
-
-- Baca deskripsi-kebutuhan.md dengan saksama. Deskripsi ini akan menjadi dasar seluruh pekerjaan Anda sampai sesi 14.
-- Buat sesi-07/analisis.md berisi: daftar kata benda (calon kelas), daftar kata kerja (calon method), dan daftar aturan bisnis (invariant).
-- Coret kata benda yang ternyata hanya atribut, bukan kelas. Tuliskan alasan pencoretannya.
-
-> **Checkpoint —** analisis.md memuat minimal enam calon kelas dan minimal lima aturan bisnis.
-
-### Langkah 2 — Use case diagram
-
-- Buat sesi-07/uml/usecase.puml dengan minimal dua aktor (Anggota, Petugas) dan enam use case.
-- Gunakan relasi include atau extend setidaknya satu kali, dan jelaskan pilihannya di analisis.md.
-
-**Terminal**
-
-```bash
-plantuml -tsvg sesi-07/uml/usecase.puml
-```
-
-> **Checkpoint —** Diagram ter-render dan menampilkan aktor serta batas sistem.
-
-### Langkah 3 — Class diagram — bagian tersulit
-
-- Salin perpustakaan-kerangka.puml ke sesi-07/uml/class.puml dan lengkapi.
-- Untuk SETIAP relasi, tentukan derajat keterikatannya dan tuliskan multiplicity di kedua ujungnya.
-- Minimal harus ada: satu komposisi, satu agregasi, satu asosiasi, dan satu dependensi.
-- Uji setiap relasi dengan pertanyaan: "Kalau induknya dihapus, apakah bagian ini masih masuk akal?"
-
-> **Checkpoint —** class.puml memuat keempat jenis relasi dengan notasi dan multiplicity yang benar.
-
-### Langkah 4 — Sequence diagram untuk satu alur
-
-- Buat sesi-07/uml/sequence-pinjam.puml yang menggambarkan alur peminjaman buku dari Anggota sampai data tersimpan.
-- Tampilkan minimal empat objek dan satu alur alternatif (misalnya buku tidak tersedia).
-
-> **Checkpoint —** Diagram menampilkan pesan bolak-balik antar objek, bukan sekadar daftar langkah.
-
-### Langkah 5 — Menerjemahkan diagram menjadi kode
-
-- Salin kerangka java/ dan php/ ke sesi-07/. Lengkapi TODO sehingga strukturnya SAMA PERSIS dengan class diagram Anda.
-- Aturan yang wajib dipatuhi:
-  • Komposisi: objek bagian dibuat DI DALAM induk, dan getter mengembalikan salinan tak-berubah.
-  • Agregasi: objek bagian diterima dari luar lewat constructor atau method.
-  • Multiplicity 1..*: constructor menolak koleksi kosong.
-- Isi method boleh minimal, tetapi struktur, tipe, dan tanda tangan harus lengkap.
-
-**Terminal**
-
-```bash
-cd sesi-07/java
-javac -d out $(find . -name "*.java")
-java -cp out Main
-```
-
-> **Checkpoint —** Program berjalan, dan setiap kelas di diagram ada di kode dengan nama yang sama persis.
-
-### Langkah 6 — Membuktikan komposisi benar-benar komposisi
-
-- Buat sesi-07/bukti-relasi.md.
-- Untuk relasi komposisi Anda, tulis kode di Main yang MENCOBA mengubah koleksi internal dari luar. Catat hasilnya.
-- Untuk relasi agregasi, tunjukkan bahwa objek bagian tetap hidup setelah dilepas dari induknya.
-
-> **Checkpoint —** bukti-relasi.md menunjukkan koleksi komposisi menolak diubah, dan objek agregasi tetap ada setelah dilepas.
-
-## E. Latihan mandiri di lab
-
-_Dikerjakan bila langkah kerja selesai lebih awal. Tidak wajib, tetapi menambah nilai pada aspek penerapan konsep._
-
-1. Ambil satu relasi yang Anda tandai agregasi, lalu ubah menjadi komposisi. Catat berapa baris kode yang berubah dan mengapa.
-2. Buat activity diagram untuk alur pengembalian buku, termasuk cabang perhitungan denda.
-
-## F. Tugas rumah
-
-1. TUGAS 2 (mata kuliah teori): modelkan Sistem Presensi Kuliah dengan minimal enam kelas, mencakup satu komposisi, satu agregasi, dan satu asosiasi, lengkap dengan multiplicity. Implementasikan kerangka kodenya di Java DAN PHP.
-2. Untuk setiap relasi pada tugas tersebut, tulis satu kalimat justifikasi: mengapa agregasi dan bukan komposisi, atau sebaliknya.
-3. Persiapan sesi 8: pelajari kembali seluruh materi sesi 1–7. Ujian praktik tengah semester berbentuk live coding di hadapan dosen.
-
-## G. Luaran yang dikumpulkan
-
-Seluruh luaran diserahkan melalui repositori Git pribadi Anda, dengan riwayat commit yang menunjukkan proses pengerjaan — bukan satu commit tunggal di akhir.
-
-| Berkas / folder | Keterangan |
-|---|---|
-| `sesi-07/analisis.md` | Analisis kata benda, kata kerja, aturan bisnis, dan alasan pencoretan. |
-| `sesi-07/uml/` | usecase.puml, class.puml, sequence-pinjam.puml beserta hasil render. |
-| `sesi-07/java/ dan sesi-07/php/` | Kerangka kode Sistem Perpustakaan yang konsisten dengan diagram. |
-| `sesi-07/bukti-relasi.md` | Bukti bahwa komposisi dan agregasi diterapkan benar di kode. |
-
-## H. Rubrik penilaian sesi ini
-
-| Aspek | Bobot | Kriteria |
-|---|---|---|
-| Kebenaran fungsional | 35% | Seluruh perintah pada langkah kerja berjalan dan menghasilkan keluaran yang diminta. |
-| Penerapan konsep sesi ini | 30% | Konsep yang menjadi Sub-CPMK sesi ini diterapkan dengan tepat, bukan sekadar membuat program berjalan. |
-| Keterbacaan dan konvensi | 10% | Penamaan bermakna, format konsisten, komentar seperlunya, riwayat commit wajar. |
-| Demo dan pertanyaan lisan | 25% | Mampu menjelaskan setiap baris kode sendiri dan menjawab pertanyaan demo. MENGGUGURKAN: tanpa demo, tugas tidak dinilai. |
-
-## I. Pertanyaan demo
-
-> Pertanyaan berikut akan diajukan saat Anda mendemokan pekerjaan sesi ini. Daftar ini sengaja dibuka agar Anda mempersiapkan **pemahaman**, bukan hafalan. Anda boleh memakai alat bantu apa pun saat mengerjakan — tetapi kode yang tidak dapat Anda jelaskan sendiri tidak dinilai.
-
-1. Tunjuk satu komposisi di diagram Anda, lalu tunjuk baris kode yang mewujudkannya. Apa yang membuatnya komposisi dan bukan agregasi?
-2. Kalau saya menghapus objek induk pada relasi komposisi Anda, apa yang terjadi pada bagiannya? Tunjukkan di kode.
-3. Mengapa getter untuk koleksi komposisi mengembalikan salinan? Apa yang terjadi kalau tidak?
-4. Di diagram Anda tertulis multiplicity 1..*. Baris kode mana yang menjamin angka minimalnya satu?
-5. Ada kelas di diagram Anda yang tidak ada di kode, atau sebaliknya? Kita periksa satu per satu.
-6. Pada sequence diagram, objek mana yang memutuskan bahwa peminjaman ditolak? Mengapa bukan objek yang lain?
-7. Saya ingin menambah aturan: satu anggota maksimum meminjam tiga buku. Di diagram, itu muncul di mana? Di kode, di mana?
-
-## J. Kesalahan yang sering terjadi
-
-| Gejala | Penyebab yang lazim | Cara memperbaiki |
-|---|---|---|
-| Semua relasi digambar dengan garis polos | Belum membedakan derajat keterikatan. | Tentukan tiap relasi dengan pertanyaan "kalau induknya dihapus...". Gunakan *-- , o-- , --> , ..> sesuai hasilnya. |
-| Multiplicity tidak ditulis | Dianggap detail yang bisa ditambahkan nanti. | Multiplicity adalah aturan bisnis. Tanpa itu, model kehilangan informasi penting dan tidak bisa diterjemahkan ke validasi. |
-| Diagram menyebut komposisi, tetapi getter membocorkan koleksi | Diagram dibuat menurut niat, kode ditulis menurut kebiasaan. | Kembalikan List.copyOf(...) di Java; jadikan objek bagian readonly di PHP. |
-| PlantUML gagal merender | Kesalahan sintaks, atau Graphviz belum terpasang. | Periksa pesan kesalahannya; untuk diagram tertentu PlantUML membutuhkan Graphviz (dot). |
-| Kompilasi Java gagal karena struktur folder tidak cocok dengan package | Nama package tidak sama dengan jalur folder. | Samakan keduanya, atau kompilasi dengan menyebut seluruh berkas: javac -d out $(find . -name "*.java"). |
-
-## Lembar verifikasi demo
-
-Diisi oleh dosen atau asisten pada saat demo. Tugas tanpa lembar terverifikasi tidak dinilai.
-
-|  |  |
-|---|---|
-| Nama / NIM |  |
-| Tanggal demo |  |
-| Nilai sesi ini |  |
-| Catatan penguji |  |
-| Paraf penguji |  |
+| Informasi Praktikan | Keterangan |
+| :--- | :--- |
+| **Nama** | Muhamad Aria Khalil Mirzahamzah |
+| **NPM** | 4525210094 |
+| **Kelas** | A |
+| **Mata Kuliah** | Pemrograman Berbasis Objek (PBO) |
+| **Pertemuan** | 7 - Komposisi dan Agregasi |
+| **Tanggal** | [ 17/10/2026 ] |
 
 ---
 
-_Modul ini disusun 10 September 2026. Versi teknologi yang dirujuk (Java 25 LTS, PHP 8.4/8.5, Laravel 13, Spring Boot 4.1) diverifikasi pada tanggal tersebut dan perlu diperiksa ulang sebelum semester berjalan._
+## 1. Implementasi Java
+
+### 1.1. File: `model/Buku.java`
+
+**TODO 1: Validasi jumlah eksemplar pada constructor**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO1 Buku.java](ImgBeforeJava/SSTODO1.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO1 Buku.java](ImgAfterJava/SSTODO1.png)
+
+**Penjelasan:**
+> Constructor menolak jumlah eksemplar negatif dengan melempar `IllegalArgumentException`. Pemeriksaan dilakukan sebelum field diisi, sehingga objek `Buku` tidak pernah berada dalam kondisi yang tidak valid.
+
+**TODO 2: Method `tambahBab(int nomor, String judulBab)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO2 Buku.java](ImgBeforeJava/SSTODO2.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO2 Buku.java](ImgAfterJava/SSTODO2.png)
+
+**Penjelasan:**
+> Method menerima nomor dan judul, bukan objek `Bab`. Objek `Bab` dibuat di dalam `Buku` sehingga tidak ada cara lain untuk membuatnya dari luar. Inilah yang membuat relasi ini komposisi.
+
+**TODO 3: Method `getBab()` mengembalikan salinan tak-berubah**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO3 Buku.java](ImgBeforeJava/SSTODO3.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO3 Buku.java](ImgAfterJava/SSTODO3.png)
+
+**Penjelasan:**
+> Sebelum diperbaiki, `getBab()` mengembalikan list internal sehingga `clear()` dari luar berhasil menghapus isi buku. Setelah memakai `List.copyOf(bab)`, pemanggilan `clear()` melempar `UnsupportedOperationException`, dan komposisi tetap terjaga.
+
+**TODO 4: Method `kurangiStok()`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO4 Buku.java](ImgBeforeJava/SSTODO4.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO4 Buku.java](ImgAfterJava/SSTODO4.png)
+
+**Penjelasan:**
+> Method mengurangi stok satu, dan melempar `IllegalStateException` jika stok sudah nol.
+
+**Kode Lengkap:**
+![Kode Buku.java](ImgKodeJava/SSKodeBuku.png)
+
+### 1.2. File: `model/Jurusan.java`
+
+**TODO 1: Method `daftarkan(Mahasiswa m)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO1 Jurusan.java](ImgBeforeJava/SSTODO5.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO1 Jurusan.java](ImgAfterJava/SSTODO5.png)
+
+**Penjelasan:**
+> Objek `Mahasiswa` datang dari luar, itulah tanda agregasi. Method menolak `null` dengan `Objects.requireNonNull` dan tidak menambahkan mahasiswa yang sudah terdaftar.
+
+**TODO 2: Method `keluarkan(Mahasiswa m)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO2 Jurusan.java](ImgBeforeJava/SSTODO6.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO2 Jurusan.java](ImgAfterJava/SSTODO6.png)
+
+**Penjelasan:**
+> Method hanya melepas referensi dari daftar. Objek `Mahasiswa` tetap hidup di luar jurusan, sesuai sifat agregasi.
+
+**TODO 3: Method `getMahasiswa()` mengembalikan salinan tak-berubah**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO3 Jurusan.java](ImgBeforeJava/SSTODO7.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO3 Jurusan.java](ImgAfterJava/SSTODO7.png)
+
+**Penjelasan:**
+> Sama seperti `Buku.getBab()`, method ini mengembalikan `List.copyOf(mahasiswa)` agar daftar internal tidak bisa diubah dari luar.
+
+**Kode Lengkap:**
+![Kode Jurusan.java](ImgKodeJava/SSKodeJurusan.png)
+
+### 1.3. File: `service/PerpustakaanService.java`
+
+**TODO 1: Keputusan agregasi atau komposisi**
+
+* **Before** *(Kondisi awal / Belum ada penyimpanan koleksi)*:
+![SS Before TODO1 PerpustakaanService.java](ImgBeforeJava/SSTODO8.png)
+
+* **After** *(Kondisi akhir / Keputusan agregasi diwujudkan)*:
+![SS After TODO1 PerpustakaanService.java](ImgAfterJava/SSTODO8.png)
+
+**Penjelasan:**
+> Keputusan: **agregasi**. Buku dibuat di luar layanan lalu diserahkan lewat `tambahKoleksi()`. Layanan hanya menyimpan referensinya sehingga buku tetap ada meski layanan tidak dipakai lagi.
+
+**TODO 2: Method `tambahKoleksi(Buku buku)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO2 PerpustakaanService.java](ImgBeforeJava/SSTODO9.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO2 PerpustakaanService.java](ImgAfterJava/SSTODO9.png)
+
+**Penjelasan:**
+> Method menolak `null` dan nomor induk yang sudah terdaftar, lalu menambahkan buku ke daftar koleksi.
+
+**TODO 3: Method `cariKoleksi(String nomorInduk)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO3 PerpustakaanService.java](ImgBeforeJava/SSTODO10.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO3 PerpustakaanService.java](ImgAfterJava/SSTODO10.png)
+
+**Penjelasan:**
+> Method menelusuri koleksi dan mengembalikan buku yang nomor induknya cocok, atau `null` jika tidak ditemukan.
+
+**TODO 4: Method `pinjam(nomorAnggota, nomorInduk)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO4 PerpustakaanService.java](ImgBeforeJava/SSTODO11.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO4 PerpustakaanService.java](ImgAfterJava/SSTODO11.png)
+
+**Penjelasan:**
+> Aturan sementara: buku harus ada dan masih tersedia, lalu stoknya dikurangi. Validasi anggota dan batas pinjam akan ditambahkan pada sesi 10.
+
+**TODO 5: Method `kembalikan(nomorAnggota, nomorInduk)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO5 PerpustakaanService.java](ImgBeforeJava/SSTODO12.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO5 PerpustakaanService.java](ImgAfterJava/SSTODO12.png)
+
+**Penjelasan:**
+> Method mencari buku lalu menambah stoknya kembali.
+
+**Kode Lengkap:**
+![Kode PerpustakaanService.java](ImgKodeJava/SSKodePerpustakaanService.png)
+
+### 1.4. File: `Main.java`
+
+* Tidak ada TODO. Program mendemonstrasikan komposisi (`Buku` dan `Bab`) dan agregasi (`Jurusan` dan `Mahasiswa`).
+
+**Output Program:**
+![Output Java](SSoutputJava.png)
+
+**Penjelasan:**
+> Percobaan mengosongkan koleksi bab dari luar ditolak, yang membuktikan `getBab()` sudah mengembalikan salinan tak-berubah. Setelah Budi dikeluarkan dari jurusan, objek `Budi` tetap ada, yang membuktikan agregasi.
+
+---
+
+## 2. Implementasi PHP
+
+### 2.1. File: `relasi.php`
+
+**TODO 1: Constructor `readonly` pada `Bab`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO1 relasi.php](ImgBeforephp/SSTODO1.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO1 relasi.php](ImgAfterphp/SSTODO1.png)
+
+**Penjelasan:**
+> Properti `$nomor` dan `$judul` dibuat `readonly` agar tidak bisa diubah setelah objek dibuat. PHP tidak punya nested class, sehingga pembatasan bahwa `Bab` hanya dibuat dari `Buku` dijaga lewat konvensi.
+
+**TODO 2: Validasi jumlah eksemplar pada `Buku`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO2 relasi.php](ImgBeforephp/SSTODO2.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO2 relasi.php](ImgAfterphp/SSTODO2.png)
+
+**Penjelasan:**
+> Constructor melempar `InvalidArgumentException` jika jumlah eksemplar negatif.
+
+**TODO 3: Method `tambahBab(int $nomor, string $judulBab)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO3 relasi.php](ImgBeforephp/SSTODO3.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO3 relasi.php](ImgAfterphp/SSTODO3.png)
+
+**Penjelasan:**
+> Method membuat `Bab` baru dari nomor dan judul, sama seperti versi Java.
+
+**TODO 4: Method `kurangiStok()`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO4 relasi.php](ImgBeforephp/SSTODO4.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO4 relasi.php](ImgAfterphp/SSTODO4.png)
+
+**Penjelasan:**
+> Method melempar `RuntimeException` jika stok sudah nol.
+
+**TODO 5: Method `daftarkan(Mahasiswa $m)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO5 relasi.php](ImgBeforephp/SSTODO5.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO5 relasi.php](ImgAfterphp/SSTODO5.png)
+
+**Penjelasan:**
+> Perbandingan `in_array(..., true)` membandingkan identitas objek, sehingga mahasiswa yang sama tidak masuk dua kali.
+
+**TODO 6: Method `keluarkan(Mahasiswa $m)`**
+
+* **Before** *(Kondisi awal / Galat logika)*:
+![SS Before TODO6 relasi.php](ImgBeforephp/SSTODO6.png)
+
+* **After** *(Kondisi akhir / Eksekusi berhasil)*:
+![SS After TODO6 relasi.php](ImgAfterphp/SSTODO6.png)
+
+**Penjelasan:**
+> Mahasiswa dibuang dari array dengan `array_filter`, lalu indeksnya dirapikan dengan `array_values`. Objeknya tetap hidup di luar jurusan.
+
+**Kode Lengkap:**
+![Kode relasi.php](ImgKodephp/SSKodeRelasi.png)
+
+### 2.2. File: `main.php`
+
+* Tidak ada TODO. Program mencetak hasil komposisi dan agregasi dengan cara yang sama seperti `Main.java`.
+
+**Output Program:**
+![Output PHP](SSoutputphp.png)
+
+---
+
+## 3. Class Diagram (PlantUML)
+
+File: `perpustakaan-kerangka.puml`
+
+**TODO 1: Tiga turunan `Koleksi`**
+
+* **Before** *(Kondisi awal / Belum ada turunan)*:
+![SS Before TODO1 puml](ImgBeforeUML/SSTODO1.png)
+
+* **After** *(Kondisi akhir / Turunan ditambahkan)*:
+![SS After TODO1 puml](ImgAfterUML/SSTODO1.png)
+![SS After TODO1 puml](ImgAfterUML/SSTODO1(1).png)
+
+
+**Penjelasan:**
+> `Buku`, `Majalah`, dan `Skripsi` diturunkan dari `Koleksi`. Masa pinjam Buku 14 hari, Majalah 7 hari, dan Skripsi hanya baca di tempat sehingga tidak boleh dipinjam.
+
+**TODO 2: Kelas `Anggota` dan `Peminjaman`**
+
+* **Before** *(Kondisi awal / Kelas belum ada)*:
+![SS Before TODO2 puml](ImgBeforeUML/SSTODO2.png)
+
+* **After** *(Kondisi akhir / Kelas ditambahkan)*:
+![SS After TODO2 puml](ImgAfterUML/SSTODO2.png)
+
+**Penjelasan:**
+> Ditambahkan kelas `Anggota` dengan atribut nomor anggota, nama, dan jenis. Kelas `Peminjaman` dengan atribut tanggal pinjam, jatuh tempo, dan tanggal kembali.
+
+**TODO 3: Enum `StatusKoleksi` dan `JenisKeanggotaan`**
+
+* **Before** *(Kondisi awal / Enum belum ada)*:
+![SS Before TODO3 puml](ImgBeforeUML/SSTODO3.png)
+
+* **After** *(Kondisi akhir / Enum ditambahkan)*:
+![SS After TODO3 puml](ImgAfterUML/SSTODO3.png)
+
+**Penjelasan:**
+> `StatusKoleksi` berisi `TERSEDIA`, `DIPINJAM`, dan `HABIS`. `JenisKeanggotaan` berisi `MAHASISWA`, `DOSEN`, dan `UMUM`.
+
+**TODO 4: Derajat keterikatan dan multiplicity**
+
+* **Before** *(Kondisi awal / Relasi belum diisi)*:
+![SS Before TODO4 puml](ImgBeforeUML/SSTODO4.png)
+
+* **After** *(Kondisi akhir / Relasi lengkap dengan multiplicity)*:
+![SS After TODO4 puml](ImgAfterUML/SSTODO4.png)
+
+**Penjelasan:**
+> `Buku "1" *-- "0..*" Bab` adalah komposisi, karena bab tidak punya arti tanpa buku. `Anggota "1" *-- "0..*" Peminjaman` adalah komposisi, karena riwayat pinjam dimiliki anggota. `Peminjaman "0..*" --> "1" Koleksi` adalah asosiasi, karena koleksi tidak memiliki peminjaman.
+
+**TODO 5: Relasi `Koleksi <|-- Bab` yang salah**
+
+* **Before** *(Kondisi awal / Relasi salah)*:
+![SS Before TODO5 puml](ImgBeforeUML/SSTODO5.png)
+
+* **After** *(Kondisi akhir / Relasi diperbaiki)*:
+![SS After TODO5 puml](ImgAfterUML/SSTODO5.png)
+
+**Penjelasan:**
+> `Bab` bukan turunan `Koleksi`, melainkan bagian dari `Buku`. Relasi generalisasi tersebut dihapus.
+
+**TODO 6: Relasi `PerpustakaanService`**
+
+* **Before** *(Kondisi awal / Relasi belum ada)*:
+![SS Before TODO6 puml](ImgBeforeUML/SSTODO6.png)
+
+* **After** *(Kondisi akhir / Relasi ditambahkan)*:
+![SS After TODO6 puml](ImgAfterUML/SSTODO6.png)
+
+**Penjelasan:**
+> `PerpustakaanService` memakai agregasi terhadap `Koleksi` dan `Anggota`, karena layanan hanya menyimpan referensi. Layanan juga memiliki dependensi ke `Peminjaman` karena membuatnya saat `pinjam()` dipanggil.
+
+---
+
+## 4. Kesimpulan
+
+> Komposisi dipakai ketika bagian tidak punya arti tanpa induknya, seperti `Bab` pada `Buku`, dan bagian dibuat di dalam induk. Agregasi dipakai ketika bagian datang dari luar dan tetap hidup walau induknya dihapus, seperti `Mahasiswa` pada `Jurusan` dan `Koleksi` pada `PerpustakaanService`.
+>
+> Perbedaan utama Java dan PHP ada pada cara membatasi pembuatan objek bagian. Java bisa memakai nested class dengan constructor privat, sedangkan PHP hanya bisa mengandalkan konvensi.
+

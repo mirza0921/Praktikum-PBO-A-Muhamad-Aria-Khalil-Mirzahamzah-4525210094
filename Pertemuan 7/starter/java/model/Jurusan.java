@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Sesi 7 — AGREGASI, sebagai pembanding komposisi pada Buku.
@@ -25,20 +26,20 @@ public class Jurusan {
      *         Tolak null, dan jangan menambahkan yang sudah terdaftar.
      */
     public void daftarkan(Mahasiswa m) {
-        if(m == null) {
-            throw new IllegalAccessError("Mahasiswa tidak boleh kosong");
+        Objects.requireNonNull(m, "Mahasiswa tidak boleh null");
+        if (!mahasiswa.contains(m)) {
+            mahasiswa.add(m);
         }
-        this.mahasiswa.add(m);
     }
 
     /** TODO 2: lepaskan dari jurusan ini. Objeknya TETAP HIDUP di luar sana. */
     public void keluarkan(Mahasiswa m) {
-        this.mahasiswa.remove(m); 
+        mahasiswa.remove(m);
     }
 
     /** TODO 3: kembalikan salinan tak-berubah. */
     public List<Mahasiswa> getMahasiswa() {
-        return List.copyOf(this.mahasiswa);   // ganti
+        return List.copyOf(mahasiswa);
     }
 
     public String getNama() { return nama; }
