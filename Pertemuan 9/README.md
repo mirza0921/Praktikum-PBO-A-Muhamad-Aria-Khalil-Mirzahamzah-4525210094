@@ -1,27 +1,28 @@
 # Praktikum PBO Sesi 9 — Package, Namespace, dan Build Tool
 
-**Nama:** Muhamad Aria Khalil MIrzahamzah  
+**Nama:** Muhamad Aria Khalil Mirzahamzah  
 **NPM:** 4525210094  
 **Mata Kuliah:** Praktikum Pemrograman Berorientasi Objek
 
 ## 1. Deskripsi Praktikum
 
-Pada praktikum PBO sesi 9, saya mempelajari cara menggunakan package pada Java, namespace pada PHP, serta build tool Maven dan Composer. Materi ini membantu saya memahami bagaimana mengatur susunan file program agar lebih rapi dan memudahkan pengelolaan library atau dependensi yang digunakan dalam proyek.
+Praktikum sesi 9 membahas penggunaan package pada Java, namespace pada PHP, serta build tool Maven dan Composer. Praktikum ini bertujuan agar struktur program lebih teratur, kelas dapat dikelompokkan berdasarkan fungsinya, dan dependensi eksternal dapat dikelola dengan lebih mudah.
 
 ## 2. Tujuan Praktikum
 
-1. Mengetahui cara menggunakan package dalam Java.
-2. Memahami fungsi namespace pada PHP.
-3. Mempelajari penyusunan proyek Java dengan Maven.
-4. Memahami cara mengelola library PHP menggunakan Composer.
-5. Menerapkan autoload PSR-4 untuk memanggil kelas secara otomatis.
-6. Mencoba penggunaan library Datafaker dan Carbon.
-7. Mempraktikkan penggunaan Git dan GitHub untuk menyimpan hasil pekerjaan.
+1. Memahami penggunaan package pada Java.
+2. Memahami penggunaan namespace pada PHP.
+3. Memahami struktur proyek Java menggunakan Maven.
+4. Memahami pengelolaan dependensi PHP menggunakan Composer.
+5. Menerapkan autoload PSR-4 pada PHP.
+6. Menggunakan dependensi eksternal Datafaker dan Carbon.
+7. Mengelola proyek menggunakan Git dan GitHub.
 
 ## 3. Struktur Folder Proyek
 
 ### A. Java dengan Maven
 
+```text
 java/
 ├── pom.xml
 ├── src/
@@ -41,9 +42,11 @@ java/
 │   └── test/
 │       └── java/                       
 └── target/
+```
 
 ### B. PHP dengan Composer
 
+```text
 php/
 ├── composer.json
 ├── composer.lock          
@@ -59,82 +62,204 @@ php/
 │       └── Format.php
 ├── tests/                
 └── vendor/ hp
-
+```
 
 ## 4. Package pada Java
 
-Package merupakan fitur Java yang digunakan untuk mengelompokkan kelas berdasarkan fungsi tertentu. Dengan package, file program dapat disusun lebih teratur dan lebih mudah ditemukan ketika dibutuhkan.
+Package digunakan untuk mengelompokkan kelas berdasarkan fungsi dan kegunaannya. Pada proyek ini, package utama yang digunakan adalah:
 
-Dalam proyek perpustakaan, kelas yang berhubungan dengan data, seperti `Buku`, `Anggota`, dan `Peminjaman`, ditempatkan pada package `model`. Sementara itu, kelas yang mengatur proses atau layanan perpustakaan dimasukkan ke dalam package `service`.
+```java
+package id.ac.univpancasila.perpustakaan;
+```
 
-Penggunaan package juga membantu menghindari kesamaan nama kelas yang dapat menimbulkan konflik dalam sebuah proyek.
+Kelas yang berkaitan dengan model ditempatkan dalam package:
+
+```java
+package id.ac.univpancasila.perpustakaan.model;
+```
+
+Sedangkan kelas yang berkaitan dengan layanan perpustakaan ditempatkan dalam package:
+
+```java
+package id.ac.univpancasila.perpustakaan.service;
+```
+
+Penggunaan package membuat struktur kode lebih terorganisasi dan membantu menghindari konflik nama kelas.
 
 ## 5. Namespace pada PHP
 
-Namespace pada PHP memiliki fungsi untuk mengelompokkan kelas agar susunan program menjadi lebih jelas. Penggunaannya juga membantu membedakan kelas yang memiliki nama sama tetapi berasal dari kelompok yang berbeda.
+Namespace digunakan untuk mengelompokkan kelas PHP agar lebih teratur dan menghindari konflik nama kelas.
 
-Pada proyek ini, namespace `Perpustakaan\Model` digunakan untuk kelas yang mengelola data, sedangkan namespace `Perpustakaan\Service` digunakan untuk kelas yang menangani proses layanan perpustakaan.
+Contoh namespace untuk kelas model:
 
-Dengan adanya namespace, pemanggilan kelas menjadi lebih terstruktur karena setiap kelas memiliki identitas sesuai dengan namespace yang telah ditentukan.
+```php
+namespace Perpustakaan\Model;
+```
+
+Contoh namespace untuk kelas service:
+
+```php
+namespace Perpustakaan\Service;
+```
+
+Dengan menggunakan namespace, kelas dapat dipanggil sesuai lokasi dan nama namespace yang telah ditentukan.
 
 ## 6. Maven pada Java
 
-Maven adalah alat bantu yang digunakan untuk mengelola proyek Java. Maven dapat membantu proses kompilasi, mengatur library yang diperlukan, dan menjalankan program melalui perintah tertentu.
+Maven merupakan build tool yang digunakan untuk mengelola dependensi, melakukan kompilasi, dan menjalankan proyek Java.
 
-Konfigurasi Maven disimpan dalam file `pom.xml`. Melalui file tersebut, dependensi yang dibutuhkan proyek dapat ditentukan tanpa harus mengelolanya secara manual satu per satu.
+File konfigurasi Maven adalah `pom.xml`. Pada proyek ini, Maven digunakan untuk mengelola dependensi yang diperlukan, termasuk Datafaker.
 
-Beberapa perintah yang digunakan dalam praktikum ini adalah `mvn clean compile` untuk membersihkan hasil build sebelumnya sekaligus melakukan kompilasi, `mvn exec:java` untuk menjalankan kelas utama sesuai konfigurasi, dan `mvn dependency:tree` untuk melihat daftar dependensi yang digunakan.
+### Perintah menjalankan proyek Java
 
-Hasil daftar dependensi juga dapat disimpan ke dalam file agar lebih mudah diperiksa kembali.
+Masuk ke folder proyek Java:
+
+```powershell
+cd java
+```
+
+Membersihkan hasil kompilasi sebelumnya dan melakukan kompilasi ulang:
+
+```powershell
+mvn clean compile
+```
+
+Menjalankan program utama:
+
+```powershell
+mvn exec:java "-Dexec.mainClass=id.ac.univpancasila.perpustakaan.Main"
+```
+
+Melihat daftar dependensi:
+
+```powershell
+mvn dependency:tree
+```
+
+Menyimpan daftar dependensi ke file:
+
+```powershell
+mvn dependency:tree > ../dependency-tree.txt
+```
 
 ## 7. Composer pada PHP
 
-Composer merupakan alat untuk mengelola dependensi pada PHP. Dengan Composer, proses pemasangan library dan pengaturan autoload kelas dapat dilakukan dengan lebih mudah.
+Composer merupakan dependency manager untuk PHP yang digunakan untuk mengelola pustaka eksternal dan memuat kelas secara otomatis.
 
-Konfigurasi proyek disimpan dalam file `composer.json`. Pada praktikum ini, autoload PSR-4 digunakan untuk menghubungkan namespace `Perpustakaan` dengan folder `src/`.
+File konfigurasi Composer adalah `composer.json`.
 
-Perintah `composer install` digunakan untuk memasang dependensi berdasarkan konfigurasi proyek. Jika terdapat perubahan pada struktur kelas atau konfigurasi autoload, perintah `composer dump-autoload` dapat digunakan untuk memperbarui daftar kelas yang dapat dimuat secara otomatis.
+Contoh konfigurasi autoload PSR-4:
 
-Setelah dependensi terpasang, program dapat dijalankan melalui file utama menggunakan perintah `php main.php`.
+```json
+{
+    "autoload": {
+        "psr-4": {
+            "Perpustakaan\\": "src/"
+        }
+    },
+    "require": {
+        "nesbot/carbon": "^3.15"
+    }
+}
+```
+
+Konfigurasi tersebut menghubungkan namespace `Perpustakaan\\` dengan folder `src/`.
+
+### Perintah menjalankan proyek PHP
+
+Masuk ke folder proyek PHP:
+
+```powershell
+cd php
+```
+
+Memasang dependensi:
+
+```powershell
+composer install
+```
+
+Memperbarui autoload setelah perubahan struktur kelas:
+
+```powershell
+composer dump-autoload
+```
+
+Menjalankan program:
+
+```powershell
+php main.php
+```
 
 ## 8. Penggunaan Datafaker dan Carbon
 
 ### A. Datafaker
 
-Datafaker merupakan library Java yang dapat menghasilkan data buatan untuk kebutuhan pengujian program. Contohnya adalah membuat nama atau informasi fiktif sehingga program dapat dicoba tanpa harus memasukkan data secara manual satu per satu.
+Datafaker merupakan library Java yang dapat digunakan untuk menghasilkan data contoh secara otomatis, seperti nama atau data fiktif lainnya.
 
-Dalam praktikum ini, Datafaker dipelajari sebagai salah satu dependensi eksternal yang dapat ditambahkan dan dikelola menggunakan Maven.
+Pada praktikum ini, Datafaker digunakan sebagai dependensi eksternal pada proyek Java untuk membantu menghasilkan data contoh.
 
 ### B. Carbon
 
-Carbon adalah library PHP yang membantu proses pengolahan tanggal dan waktu. Library ini menyediakan berbagai fungsi untuk mengambil tanggal saat ini, mengubah format tanggal, serta melakukan perhitungan waktu.
+Carbon merupakan library PHP untuk mempermudah pengolahan tanggal dan waktu.
 
-Pada contoh program, Carbon digunakan untuk mengambil tanggal peminjaman dan menentukan tanggal pengembalian tujuh hari setelahnya. Hasil tanggal kemudian ditampilkan dengan format hari, bulan, dan tahun.
+Contoh penggunaan Carbon:
 
-Dengan menggunakan Carbon, perhitungan tanggal dapat dilakukan dengan lebih praktis dan kode menjadi lebih mudah dipahami.
+```php
+use Carbon\Carbon;
+
+$tanggalPeminjaman = Carbon::now();
+$tanggalKembali = $tanggalPeminjaman->copy()->addDays(7);
+
+echo "Tanggal peminjaman: " . $tanggalPeminjaman->format('d-m-Y');
+echo PHP_EOL;
+echo "Tanggal kembali: " . $tanggalKembali->format('d-m-Y');
+```
+
+Kode tersebut menghitung tanggal kembali tujuh hari setelah tanggal peminjaman.
 
 ## 9. Percobaan Package dan Namespace
 
-Pada bagian ini, saya mempelajari hubungan antara package atau namespace dengan susunan folder tempat kelas disimpan. Setiap kelas perlu memiliki deklarasi yang sesuai agar dapat dikenali dan dipanggil dengan benar.
+Pada percobaan ini, saya mempelajari kesesuaian antara deklarasi package atau namespace dengan susunan folder tempat kelas disimpan. Kesesuaian tersebut diperlukan agar kelas dapat dikenali dan digunakan oleh bagian program lainnya.
 
-Jika terdapat ketidaksesuaian antara deklarasi package atau namespace dan struktur proyek, program dapat mengalami kesalahan ketika dijalankan atau ketika kelas dipanggil.
+Jika penamaan atau lokasi kelas tidak sesuai, program dapat mengalami kendala saat proses kompilasi atau ketika kelas dipanggil. Oleh karena itu, deklarasi pada setiap file perlu diperiksa dan disesuaikan dengan struktur proyek.
 
-Untuk mengatasinya, deklarasi pada file program perlu diperiksa dan disesuaikan dengan struktur folder yang digunakan. Hasil percobaan, pesan kesalahan yang muncul, serta cara memperbaikinya dicatat dalam file `percobaan.md`.
+Hasil percobaan, kesalahan yang ditemukan, serta cara mengatasinya didokumentasikan dalam file percobaan.md sesuai dengan proses yang dilakukan.
 
 ## 10. Pengelolaan Proyek Menggunakan Git
 
-Git digunakan untuk mencatat perubahan pada file program, sedangkan GitHub digunakan sebagai tempat penyimpanan repositori secara online. Keduanya membantu proses penyimpanan dan pengumpulan hasil praktikum.
+Git digunakan untuk mencatat perubahan kode dan mengunggah hasil praktikum ke GitHub.
 
-Dalam prosesnya, perintah `git status` digunakan untuk memeriksa perubahan file. Selanjutnya, `git add .` digunakan untuk menyiapkan file yang akan disimpan, kemudian `git commit` digunakan untuk mencatat perubahan tersebut.
+Perintah untuk memeriksa perubahan:
 
-Setelah itu, perintah `git push origin main` digunakan untuk mengunggah commit ke repositori GitHub.
+```powershell
+git status
+```
 
-Folder hasil build seperti `target/` dan folder dependensi `vendor/` umumnya tidak perlu diunggah karena dapat dihasilkan kembali melalui proses build atau instalasi dependensi. Namun, file `composer.lock` tetap disimpan agar versi dependensi yang digunakan dapat dipertahankan.
+Menambahkan file ke staging:
+
+```powershell
+git add .
+```
+
+Membuat commit:
+
+```powershell
+git commit -m "Praktikum PBO Sesi 9"
+```
+
+Mengunggah perubahan ke GitHub:
+
+```powershell
+git push origin main
+```
+
+Folder hasil build seperti `target/` dan folder dependensi `vendor/` tidak perlu dimasukkan ke repositori. File `composer.lock` tetap disimpan agar versi dependensi PHP dapat dipertahankan.
 
 ## 11. Kesimpulan
 
-Dari praktikum PBO sesi 9, saya memahami bahwa package pada Java dan namespace pada PHP digunakan untuk menyusun kelas berdasarkan fungsi masing-masing. Dengan pembagian tersebut, struktur program menjadi lebih rapi dan lebih mudah dikelola.
+Setelah menyelesaikan praktikum PBO sesi 9, saya memahami cara mengelompokkan kelas menggunakan package pada Java dan namespace pada PHP. Kedua fitur tersebut membantu membuat struktur program lebih teratur dan mempermudah pengelolaan kode.
 
-Saya juga mempelajari fungsi Maven dan Composer dalam mengatur dependensi serta membantu proses menjalankan proyek. Selain itu, penggunaan autoload PSR-4, Datafaker, dan Carbon memberikan pemahaman mengenai cara memanfaatkan library untuk mendukung pembuatan program.
+Saya juga mempelajari penggunaan Maven dan Composer untuk mengatur dependensi serta mendukung proses pembangunan program. Selain itu, praktikum ini memberikan pemahaman mengenai autoload PSR-4, penggunaan Datafaker dan Carbon, serta pengelolaan proyek menggunakan Git dan GitHub.
 
-Melalui praktikum ini, saya memperoleh pengetahuan dasar tentang penyusunan proyek Java dan PHP serta penggunaan Git dan GitHub untuk mengelola dan menyimpan hasil pekerjaan.
+Melalui materi ini, saya mendapatkan pengetahuan dasar untuk menyusun proyek Java dan PHP dengan lebih terstruktur sehingga lebih mudah dikembangkan dan dipelihara.
