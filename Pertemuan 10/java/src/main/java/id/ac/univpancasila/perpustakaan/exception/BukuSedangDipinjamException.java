@@ -6,21 +6,21 @@ package id.ac.univpancasila.perpustakaan.exception;
  *       isbn disertakan agar sistem dapat mengolahnya.
  */
 public class BukuSedangDipinjamException extends PerpustakaanException {
-
     private final String isbn;
-    private final String judul;
+    private  final String judul;
 
     public BukuSedangDipinjamException(String isbn, String judul) {
-        super("Buku " + judul + " dengan ISBN " + isbn + " sedang dipinjam");
+        super("Buku " + judul + " dengan ISBN  " + isbn + " sedang dipinjam");
         this.isbn = isbn;
         this.judul = judul;
     }
 
-    public String getIsbn() {
+    public String getIsbn(){
         return this.isbn;
     }
 
-    public String getJudul() {
+    public String getJudul(){
         return this.judul;
     }
 }
+

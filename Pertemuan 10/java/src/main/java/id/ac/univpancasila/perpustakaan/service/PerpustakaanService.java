@@ -14,7 +14,7 @@ import id.ac.univpancasila.perpustakaan.exception.PerpustakaanException;
 public class PerpustakaanService {
     public static void tambahAnggota(LibraryService libService, Scanner scanner) {
         System.out.println("\n--- Form Tambah Anggota ---");
-        System.out.print("Masukkan ID Anggota: ");
+        System.out.println("Masukkan ID Anggota: ");
         String idAnggota = scanner.nextLine().trim();
 
 
