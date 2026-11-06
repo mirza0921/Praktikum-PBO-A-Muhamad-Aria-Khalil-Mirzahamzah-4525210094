@@ -1,10 +1,3 @@
-# Sistem Perpustakaan: Hierarki Exception dan Refactoring
-
-Proyek ini adalah implementasi sistem peminjaman buku dalam dua bahasa, **Java** dan **PHP**. Fokus utamanya ada tiga:
-
-1. Membuat hierarki exception domain yang membawa data penyebab kegagalan.
-2. Mengubah method `pinjam()` dari nested if menjadi guard clause.
-3. Menangkap dan menampilkan exception dengan tepat di lapisan layanan dan antarmuka.
 
 | Informasi | Keterangan |
 | :--- | :--- |
